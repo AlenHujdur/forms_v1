@@ -78,7 +78,34 @@ namespace Prodaja
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            string cname = txtCompany.Text;
+            decimal revenue = decimal.Parse(txtRevenue.Text);
 
+            cmd.Parameters.Clear();
+            cmd.CommandText = "update CompanyRevenues where Revenue=@revenue where CompanyName=@cname";
+            cmd.Parameters.AddWithValue("@revenue", revenue);
+            cmd.Parameters.AddWithValue("@cname", cname);
+
+            if (cn.State == ConnectionState.Closed)
+                cn.Open();
+            cmd.ExecuteNonQuery();
+            cn.Close();
+            MessageBox.Show("Company Data updated...", "Success");
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string cname = txtCompany.Text;
+            cmd.Parameters.Clear();
+            cmd.CommandText = "Delete from CompanyRevenues where CompanyName = @cname";
+            cmd.Parameters.AddWithValue("@cname", cname);
+            if (cn.State == ConnectionState.Closed)
+                cn.Open();
+            cmd.ExecuteNonQuery();
+            cn.Close();
+            MessageBox.Show("Company removed.", "Removed");
+            txtRevenue.Clear();
+            txtCompany.Clear();
         }
     }
 }
