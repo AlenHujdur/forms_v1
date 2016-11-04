@@ -70,7 +70,7 @@ namespace Prodaja
             //cmd.CommandText = "select Revenue from CompanyRevenues where CompanyName = @cname";ok
             //cmd.Parameters.AddWithValue("@cname", txtCompany.Text); ok
             //cmd.Parameters.Add(new SqlParameter("@cname", "%" + txtCompany.Text + "%"));
-            cmd.Parameters.AddWithValue("@cname", '%'+txtCompany.Text+'%');
+            cmd.Parameters.AddWithValue("@cname", "%"+txtCompany.Text+"%");
             if (cn.State == ConnectionState.Closed)
                 cn.Open();
 
