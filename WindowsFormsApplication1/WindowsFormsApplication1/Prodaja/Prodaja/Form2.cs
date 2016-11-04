@@ -24,8 +24,8 @@ namespace Prodaja
         private void Form2_Load(object sender, EventArgs e)
         {
             //paziti!!
-            //string cs = "Data Source = NO356518BA\\SQLEXPRESS; Initial Catalog = ProdajaSQL_test; Integrated Security = True";
-            string cs = "Data Source = DESKTOP-97OEARS\\SQLEXPRESS; Initial Catalog = ProdajaSQL; Integrated Security = True";
+            string cs = "Data Source = NO356518BA\\SQLEXPRESS; Initial Catalog = PSDB; Integrated Security = True";
+            //string cs = "Data Source = DESKTOP-97OEARS\\SQLEXPRESS; Initial Catalog = ProdajaSQL; Integrated Security = True";
             cn = new SqlConnection(cs);
             cmd = new SqlCommand();
             cmd.Connection = cn;
@@ -66,8 +66,11 @@ namespace Prodaja
         private void btnSearch_Click(object sender, EventArgs e)
         {
             cmd.Parameters.Clear();
-            cmd.CommandText = "select Revenue from CompanyRevenues where CompanyName = @cname";
-            cmd.Parameters.AddWithValue("@cname", txtCompany.Text);
+            cmd.CommandText = "select Revenue from CompanyRevenues where CompanyName like @cname";
+            //cmd.CommandText = "select Revenue from CompanyRevenues where CompanyName = @cname";ok
+            //cmd.Parameters.AddWithValue("@cname", txtCompany.Text); ok
+            //cmd.Parameters.Add(new SqlParameter("@cname", "%" + txtCompany.Text + "%"));
+            cmd.Parameters.AddWithValue("@cname", '%'+txtCompany.Text+'%');
             if (cn.State == ConnectionState.Closed)
                 cn.Open();
 
@@ -82,7 +85,8 @@ namespace Prodaja
             decimal revenue = decimal.Parse(txtRevenue.Text);
 
             cmd.Parameters.Clear();
-            cmd.CommandText = "update CompanyRevenues where Revenue=@revenue where CompanyName=@cname";
+            cmd.CommandText = "update CompanyRevenues set Revenue=@revenue,CompanyName=@cname where CompanyName=@cname";
+       
             cmd.Parameters.AddWithValue("@revenue", revenue);
             cmd.Parameters.AddWithValue("@cname", cname);
 
