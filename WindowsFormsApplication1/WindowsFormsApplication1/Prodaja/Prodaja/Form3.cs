@@ -38,5 +38,24 @@ namespace Prodaja
             lstMovies.ValueMember = "id";
     
         }
+
+        private void lstMovies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataRowView drv = (DataRowView)lstMovies.SelectedItem;
+            if(drv != null)
+            {
+                int videoid = (int)drv["id"];
+                cmd.Parameters.Clear();
+                cmd.CommandText = "GetVideo";
+                cmd.Parameters.AddWithValue("@id", videoid);
+                cmd.Parameters.Add("@vurl", SqlDbType.VarChar, 100);
+                cmd.Parameters["@vurl"].Direction = ParameterDirection.Output;
+                if (cn.State == ConnectionState.Closed)
+                    cn.Open();
+                cmd.ExecuteNonQuery();
+                string videourl = cmd.Parameters["@vurl"].Value.ToString();
+                axWindowsMediaPlayer1.URL = videourl;
+            }
+        }
     }
 }

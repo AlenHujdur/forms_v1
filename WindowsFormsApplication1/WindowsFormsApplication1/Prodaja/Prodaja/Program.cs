@@ -19,7 +19,7 @@ namespace Prodaja
             //Application.Run(new Form1());
             //Application.Run(new ShowEmployees());
             //Application.Run(new SearchEmployee());  
-            Application.Run(new Form2());
+            Application.Run(new Form3());
 
         }
     }

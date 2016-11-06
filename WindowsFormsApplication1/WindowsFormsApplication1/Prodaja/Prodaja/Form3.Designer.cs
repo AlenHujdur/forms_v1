@@ -51,6 +51,7 @@
             this.lstMovies.Name = "lstMovies";
             this.lstMovies.Size = new System.Drawing.Size(245, 303);
             this.lstMovies.TabIndex = 1;
+            this.lstMovies.SelectedIndexChanged += new System.EventHandler(this.lstMovies_SelectedIndexChanged);
             // 
             // button1
             // 
