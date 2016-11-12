@@ -14,7 +14,7 @@ namespace PretplatniciDA
         { 
             using(PretplatniciEntities dm = new PretplatniciEntities())
 	        {
-                dm.usp_PretplatniciInsert(p.,p.)
+                dm.usp_PretplatniciInsert(p.Ime,p.Prezime,p.Email,p.Lozinka,p.KorisnickoIme,p.Aktivan,p.StrucnaSpremaID,p.Slika,p.Cv)
 	        }
 
         }
