@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PretplatniciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pretplatnici">
+          <Key>
+            <PropertyRef Name="PredplatnikID" />
+          </Key>
+          <Property Name="PredplatnikID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lozinka" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Aktivan" Type="bit" />
+          <Property Name="StrucnaSpremaID" Type="int" Nullable="false" />
+          <Property Name="Slika" Type="binary" MaxLength="1" />
+          <Property Name="Cv" Type="binary" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="StrucnaSprema">
+          <Key>
+            <PropertyRef Name="StrucnaSpremaID" />
+          </Key>
+          <Property Name="StrucnaSpremaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Skracenica" Type="nvarchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Pretplatn__Struc__2C3393D0">
+          <End Role="StrucnaSprema" Type="Self.StrucnaSprema" Multiplicity="1" />
+          <End Role="Pretplatnici" Type="Self.Pretplatnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StrucnaSprema">
+              <PropertyRef Name="StrucnaSpremaID" />
+            </Principal>
+            <Dependent Role="Pretplatnici">
+              <PropertyRef Name="StrucnaSpremaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_KorisniciSelectById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PretplatnikID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_PretplatniciInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Ime" Type="nvarchar" Mode="In" />
+          <Parameter Name="Prezime" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Lozinka" Type="nvarchar" Mode="In" />
+          <Parameter Name="KorisnickoIme" Type="nvarchar" Mode="In" />
+          <Parameter Name="Aktivan" Type="bit" Mode="In" />
+          <Parameter Name="StrucnaSpremaID" Type="int" Mode="In" />
+          <Parameter Name="Slika" Type="binary" Mode="In" />
+          <Parameter Name="Cv" Type="binary" Mode="In" />
+        </Function>
+        <Function Name="usp_PretplatniciSlelectByKorisnickoImeLozinka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KorisnickoIme" Type="nvarchar" Mode="In" />
+          <Parameter Name="Lozinka" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_StrucneSpremeSelectAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="PretplatniciModelStoreContainer">
+          <EntitySet Name="Pretplatnici" EntityType="Self.Pretplatnici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StrucnaSprema" EntityType="Self.StrucnaSprema" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Pretplatn__Struc__2C3393D0" Association="Self.FK__Pretplatn__Struc__2C3393D0">
+            <End Role="StrucnaSprema" EntitySet="StrucnaSprema" />
+            <End Role="Pretplatnici" EntitySet="Pretplatnici" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PretplatniciModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pretplatnici">
+          <Key>
+            <PropertyRef Name="PredplatnikID" />
+          </Key>
+          <Property Name="PredplatnikID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lozinka" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KorisnickoIme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Aktivan" Type="Boolean" />
+          <Property Name="StrucnaSpremaID" Type="Int32" Nullable="false" />
+          <Property Name="Slika" Type="Binary" MaxLength="1" FixedLength="true" />
+          <Property Name="Cv" Type="Binary" MaxLength="1" FixedLength="true" />
+          <NavigationProperty Name="StrucnaSprema" Relationship="Self.FK__Pretplatn__Struc__2C3393D0" FromRole="Pretplatnici" ToRole="StrucnaSprema" />
+        </EntityType>
+        <EntityType Name="StrucnaSprema">
+          <Key>
+            <PropertyRef Name="StrucnaSpremaID" />
+          </Key>
+          <Property Name="StrucnaSpremaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Skracenica" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pretplatnici" Relationship="Self.FK__Pretplatn__Struc__2C3393D0" FromRole="StrucnaSprema" ToRole="Pretplatnici" />
+        </EntityType>
+        <Association Name="FK__Pretplatn__Struc__2C3393D0">
+          <End Role="StrucnaSprema" Type="Self.StrucnaSprema" Multiplicity="1" />
+          <End Role="Pretplatnici" Type="Self.Pretplatnici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StrucnaSprema">
+              <PropertyRef Name="StrucnaSpremaID" />
+            </Principal>
+            <Dependent Role="Pretplatnici">
+              <PropertyRef Name="StrucnaSpremaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PretplatniciEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pretplatnici" EntityType="Self.Pretplatnici" />
+          <EntitySet Name="StrucnaSprema" EntityType="Self.StrucnaSprema" />
+          <AssociationSet Name="FK__Pretplatn__Struc__2C3393D0" Association="Self.FK__Pretplatn__Struc__2C3393D0">
+            <End Role="StrucnaSprema" EntitySet="StrucnaSprema" />
+            <End Role="Pretplatnici" EntitySet="Pretplatnici" />
+          </AssociationSet>
+          <FunctionImport Name="usp_KorisniciSelectById" ReturnType="Collection(PretplatniciModel.usp_KorisniciSelectById_Result)">
+            <Parameter Name="PretplatnikID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PretplatniciInsert">
+            <Parameter Name="Ime" Mode="In" Type="String" />
+            <Parameter Name="Prezime" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Lozinka" Mode="In" Type="String" />
+            <Parameter Name="KorisnickoIme" Mode="In" Type="String" />
+            <Parameter Name="Aktivan" Mode="In" Type="Boolean" />
+            <Parameter Name="StrucnaSpremaID" Mode="In" Type="Int32" />
+            <Parameter Name="Slika" Mode="In" Type="Binary" />
+            <Parameter Name="Cv" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="usp_PretplatniciSlelectByKorisnickoImeLozinka" ReturnType="Collection(PretplatniciModel.usp_PretplatniciSlelectByKorisnickoImeLozinka_Result)">
+            <Parameter Name="KorisnickoIme" Mode="In" Type="String" />
+            <Parameter Name="Lozinka" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_StrucneSpremeSelectAll" EntitySet="StrucnaSprema" ReturnType="Collection(PretplatniciModel.StrucnaSprema)" />
+        </EntityContainer>
+        <ComplexType Name="usp_KorisniciSelectById_Result">
+          <Property Type="Int32" Name="PredplatnikID" Nullable="false" />
+          <Property Type="String" Name="Ime" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Prezime" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="KorisnickoIme" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Lozinka" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="Aktivan" Nullable="true" />
+          <Property Type="String" Name="Naziv" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Skracenica" Nullable="false" MaxLength="4" />
+        </ComplexType>
+        <ComplexType Name="usp_PretplatniciSlelectByKorisnickoImeLozinka_Result">
+          <Property Type="Int32" Name="PredplatnikID" Nullable="false" />
+          <Property Type="String" Name="Ime" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Prezime" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="KorisnickoIme" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Lozinka" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="Aktivan" Nullable="true" />
+          <Property Type="String" Name="Naziv" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Skracenica" Nullable="false" MaxLength="4" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PretplatniciModelStoreContainer" CdmEntityContainer="PretplatniciEntities">
+          <EntitySetMapping Name="Pretplatnici">
+            <EntityTypeMapping TypeName="PretplatniciModel.Pretplatnici">
+              <MappingFragment StoreEntitySet="Pretplatnici">
+                <ScalarProperty Name="PredplatnikID" ColumnName="PredplatnikID" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+                <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
+                <ScalarProperty Name="StrucnaSpremaID" ColumnName="StrucnaSpremaID" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Cv" ColumnName="Cv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StrucnaSprema">
+            <EntityTypeMapping TypeName="PretplatniciModel.StrucnaSprema">
+              <MappingFragment StoreEntitySet="StrucnaSprema">
+                <ScalarProperty Name="StrucnaSpremaID" ColumnName="StrucnaSpremaID" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Skracenica" ColumnName="Skracenica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_KorisniciSelectById" FunctionName="PretplatniciModel.Store.usp_KorisniciSelectById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PretplatniciModel.usp_KorisniciSelectById_Result">
+                <ScalarProperty Name="PredplatnikID" ColumnName="PredplatnikID" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Skracenica" ColumnName="Skracenica" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PretplatniciInsert" FunctionName="PretplatniciModel.Store.usp_PretplatniciInsert" />
+          <FunctionImportMapping FunctionImportName="usp_PretplatniciSlelectByKorisnickoImeLozinka" FunctionName="PretplatniciModel.Store.usp_PretplatniciSlelectByKorisnickoImeLozinka">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PretplatniciModel.usp_PretplatniciSlelectByKorisnickoImeLozinka_Result">
+                <ScalarProperty Name="PredplatnikID" ColumnName="PredplatnikID" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Skracenica" ColumnName="Skracenica" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_StrucneSpremeSelectAll" FunctionName="PretplatniciModel.Store.usp_StrucneSpremeSelectAll">
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
