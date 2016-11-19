@@ -10,13 +10,21 @@ namespace PretplatniciDA
 {
     public class Pretplatnici
     {
-        public static void InsertPretplatnik(Pretplatnici p)
+        public static void InsertPretplatnik(DATA.Pretplatnici p)
         { 
             using(PretplatniciEntities dm = new PretplatniciEntities())
 	        {
-                dm.usp_PretplatniciInsert(p.Ime,p.Prezime,p.Email,p.Lozinka,p.KorisnickoIme,p.Aktivan,p.StrucnaSpremaID,p.Slika,p.Cv)
+                dm.usp_PretplatniciInsert(p.Ime, p.Prezime, p.Email, p.Lozinka, p.KorisnickoIme, p.Aktivan, p.StrucnaSpremaID, p.Slika, p.Cv);
 	        }
 
+        }
+
+        public static List<StrucnaSprema> StrucneSpremeSelectAll()
+        {
+            using (PretplatniciEntities dm = new PretplatniciEntities())
+            {
+               return dm.usp_StrucneSpremeSelectAll().ToList();
+            }
         }
     }
 }
